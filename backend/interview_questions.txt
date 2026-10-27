@@ -1,0 +1,12 @@
+1|Technical|What is the difference between an array and a linked list?|Arrays use contiguous memory with O(1) index access but costly insertion. Linked lists use nodes with pointers, so insertion is O(1) at a known position but access is O(n).
+2|Technical|Explain how Merge Sort works and its time complexity.|Divide the array in half, sort each half recursively, then merge the sorted halves. It is O(n log n) in the best, average and worst case and uses O(n) extra space.
+3|Technical|What is the difference between a stack and a queue?|A stack is LIFO (last in, first out). A queue is FIFO (first in, first out).
+4|Technical|What are the four pillars of OOP?|Encapsulation, abstraction, inheritance and polymorphism.
+5|Technical|What is a primary key in a database?|A column (or set of columns) that uniquely identifies each row in a table and cannot be NULL.
+6|Technical|What is the time complexity of binary search and what does it require?|O(log n). The data must be sorted.
+7|Technical|What is the difference between a pointer and a reference in C++?|A pointer can be null and reassigned. A reference must be initialised and always refers to the same object.
+8|HR|Tell me about yourself.|Give a short summary: your degree, key skills, one or two projects or internships, and why you are interested in this role.
+9|HR|Why should we hire you?|Match your skills and experience to the role and show that you learn fast and work well in a team.
+10|HR|What are your strengths and weaknesses?|Pick real strengths with an example. For a weakness, name something genuine and explain how you are improving it.
+11|HR|Describe a time you worked in a team and faced a conflict.|Use the STAR method: Situation, Task, Action, Result. Focus on how you communicated and solved it.
+12|HR|Where do you see yourself in five years?|Show ambition that fits the company: growing your technical skills and taking on more responsibility.

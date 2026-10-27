@@ -1,152 +1,1037 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Certifications | EmpowerTech</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>Free Certifications | EmpowerTech</title>
+
+
+<link rel="stylesheet" href="style.css">
+
+
+<link rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+<style>
+
+/* Certification Page */
+
+
+.cert-section {
+
+padding: 50px 8%;
+
+text-align: center;
+
+}
+
+
+.cert-intro {
+
+margin: 12px 0 30px;
+
+color: #666;
+
+}
+
+
+/* Provider Cards */
+
+
+.cert-cards {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+gap: 25px;
+
+margin-top: 30px;
+
+}
+
+
+.cert-card {
+
+background: #ffffff;
+
+border-radius: 12px;
+
+padding: 28px 22px;
+
+text-align: left;
+
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+transition: transform 0.3s ease;
+
+}
+
+
+.cert-card:hover {
+
+transform: translateY(-6px);
+
+}
+
+
+.cert-icon {
+
+width: 65px;
+
+height: 65px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background: #eef2ff;
+
+border-radius: 12px;
+
+margin-bottom: 20px;
+
+}
+
+
+.cert-icon i {
+
+font-size: 32px;
+
+color: #2563eb;
+
+}
+
+
+.cert-card h3 {
+
+color: #222;
+
+margin-bottom: 12px;
+
+font-size: 20px;
+
+}
+
+
+.cert-card p {
+
+color: #555;
+
+line-height: 1.6;
+
+margin-bottom: 18px;
+
+}
+
+
+.free-badge {
+
+display: inline-block;
+
+padding: 5px 10px;
+
+background: #dcfce7;
+
+color: #166534;
+
+border-radius: 20px;
+
+font-size: 12px;
+
+font-weight: bold;
+
+margin-bottom: 15px;
+
+}
+
+
+.cert-button {
+
+display: inline-block;
+
+padding: 10px 16px;
+
+background: #2563eb;
+
+color: #ffffff;
+
+text-decoration: none;
+
+border-radius: 6px;
+
+transition: background 0.3s;
+
+}
+
+
+.cert-button:hover {
+
+background: #1d4ed8;
+
+}
+
+
+/* Recommended Certifications */
+
+
+.recommended-grid {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+gap: 20px;
+
+margin-top: 30px;
+
+text-align: left;
+
+}
+
+
+.recommended-card {
+
+background: #ffffff;
+
+padding: 22px;
+
+border-radius: 10px;
+
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.recommended-card i {
+
+font-size: 28px;
+
+color: #2563eb;
+
+margin-bottom: 15px;
+
+}
+
+
+.recommended-card h3 {
+
+margin-bottom: 10px;
+
+}
+
+
+.recommended-card p {
+
+color: #555;
+
+line-height: 1.5;
+
+margin-bottom: 15px;
+
+}
+
+
+.recommended-card a {
+
+color: #2563eb;
+
+font-weight: bold;
+
+text-decoration: none;
+
+}
+
+
+.recommended-card a:hover {
+
+text-decoration: underline;
+
+}
+
+
+/* Benefits */
+
+
+.benefits-grid {
+
+display: grid;
+
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+gap: 20px;
+
+margin-top: 30px;
+
+}
+
+
+.benefit-card {
+
+padding: 22px;
+
+border-radius: 10px;
+
+background: #ffffff;
+
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+
+}
+
+
+.benefit-card i {
+
+color: #16a34a;
+
+font-size: 30px;
+
+margin-bottom: 12px;
+
+}
+
+
+.benefit-card h3 {
+
+margin-bottom: 8px;
+
+}
+
+
+.benefit-card p {
+
+color: #555;
+
+line-height: 1.5;
+
+}
+
+
+/* Notice */
+
+
+.cert-note {
+
+max-width: 850px;
+
+margin: 25px auto 0;
+
+padding: 16px;
+
+background: #eff6ff;
+
+color: #1e40af;
+
+border-radius: 8px;
+
+line-height: 1.6;
+
+text-align: left;
+
+}
+
+
+/* Responsive Design */
+
+
+@media (max-width: 600px) {
+
+.cert-section {
+
+padding: 35px 5%;
+
+}
+
+
+.cert-cards,
+
+.recommended-grid,
+
+.benefits-grid {
+
+grid-template-columns: 1fr;
+
+}
+
+}
+
+</style>
+
 </head>
+
+
 <body>
 
-<!-- ================= NAVBAR ================= -->
+
+<!-- Navbar -->
+
 
 <nav>
-    <div class="logo">
-        <i class="fa-solid fa-laptop-code"></i>
-        EmpowerTech
-    </div>
 
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="index.html#opportunities">Opportunities</a></li>
-    </ul>
+<div class="logo">
+
+<i class="fa-solid fa-laptop-code"></i>
+
+EmpowerTech
+
+</div>
+
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="index.html#opportunities">Opportunities</a></li>
+
+</ul>
+
 </nav>
 
-<!-- ================= HERO ================= -->
+
+
+<!-- Hero Section -->
+
 
 <section class="page-hero">
 
-    <h1>📜 Free Certifications</h1>
 
-    <p>
-        Earn industry-recognized certificates from top organizations and
-        strengthen your resume with valuable technical and professional skills.
-    </p>
+<h1>ðŸ�† Free Certifications</h1>
 
-</section>
 
-<!-- ================= CERTIFICATION PROVIDERS ================= -->
+<p>
 
-<section class="resources">
+Learn new skills, earn certificates, and strengthen your CV
 
-    <h2>Popular Certification Providers</h2>
+with learning opportunities from leading technology platforms.
 
-    <div class="cards">
+</p>
 
-        <div class="card">
-            <h3>Google</h3>
-
-            <p>
-                Learn Digital Marketing, Cybersecurity, Data Analytics,
-                AI, and IT Support.
-            </p>
-
-            <a href="#">Explore →</a>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Microsoft</h3>
-
-            <p>
-                Azure, AI, Cloud Computing, Power Platform,
-                and Microsoft Learn certifications.
-            </p>
-
-            <a href="#">Explore →</a>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Cisco Networking Academy</h3>
-
-            <p>
-                Networking, Cyber Security, Python,
-                Linux, and IoT courses with certificates.
-            </p>
-
-            <a href="#">Explore →</a>
-
-        </div>
-
-    </div>
 
 </section>
 
-<!-- ================= MORE PROVIDERS ================= -->
+
+
+<!-- Certification Providers -->
+
+
+<section class="cert-section">
+
+
+<h2>Explore Certification Providers</h2>
+
+
+<p class="cert-intro">
+
+Discover courses and certifications from trusted organizations.
+
+</p>
+
+
+<div class="cert-cards">
+
+
+<!-- Google -->
+
+
+<div class="cert-card">
+
+
+<div class="cert-icon">
+
+<i class="fa-brands fa-google"></i>
+
+</div>
+
+
+<span class="free-badge">Free Learning Available</span>
+
+
+<h3>Google</h3>
+
+
+<p>
+
+Learn AI, cybersecurity, digital marketing,
+
+data analytics, and IT support.
+
+</p>
+
+
+<a class="cert-button"
+
+href="https://grow.google/certificates/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore Courses â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- Microsoft -->
+
+
+<div class="cert-card">
+
+
+<div class="cert-icon">
+
+<i class="fa-brands fa-microsoft"></i>
+
+</div>
+
+
+<span class="free-badge">Free Learning Available</span>
+
+
+<h3>Microsoft Learn</h3>
+
+
+<p>
+
+Learn Azure, AI, cloud computing, and
+
+Microsoft technologies.
+
+</p>
+
+
+<a class="cert-button"
+
+href="https://learn.microsoft.com/training/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Start Learning â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- Cisco -->
+
+
+<div class="cert-card">
+
+
+<div class="cert-icon">
+
+<i class="fa-solid fa-network-wired"></i>
+
+</div>
+
+
+<span class="free-badge">Free Courses Available</span>
+
+
+<h3>Cisco Networking Academy</h3>
+
+
+<p>
+
+Learn networking, cybersecurity, Python,
+
+and essential IT skills.
+
+</p>
+
+
+<a class="cert-button"
+
+href="https://www.netacad.com/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore Courses â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- IBM -->
+
+
+<div class="cert-card">
+
+
+<div class="cert-icon">
+
+<i class="fa-solid fa-brain"></i>
+
+</div>
+
+
+<span class="free-badge">Free Learning Available</span>
+
+
+<h3>IBM SkillsBuild</h3>
+
+
+<p>
+
+Explore artificial intelligence, data,
+
+cybersecurity, and professional skills.
+
+</p>
+
+
+<a class="cert-button"
+
+href="https://skillsbuild.org/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore Courses â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- AWS -->
+
+
+<div class="cert-card">
+
+
+<div class="cert-icon">
+
+<i class="fa-brands fa-aws"></i>
+
+</div>
+
+
+<span class="free-badge">Free Learning Available</span>
+
+
+<h3>AWS Skill Builder</h3>
+
+
+<p>
+
+Learn cloud computing, AWS services,
+
+and cloud fundamentals.
+
+</p>
+
+
+<a class="cert-button"
+
+href="https://skillbuilder.aws/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Start Learning â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- freeCodeCamp -->
+
+
+<div class="cert-card">
+
+
+<div class="cert-icon">
+
+<i class="fa-brands fa-free-code-camp"></i>
+
+</div>
+
+
+<span class="free-badge">Free Certifications</span>
+
+
+<h3>freeCodeCamp</h3>
+
+
+<p>
+
+Learn web development, JavaScript,
+
+Python, and data analysis through projects.
+
+</p>
+
+
+<a class="cert-button"
+
+href="https://www.freecodecamp.org/learn/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Start Learning â†’
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- Recommended Certifications -->
+
+
+<section class="cert-section">
+
+
+<h2>Recommended for Beginners</h2>
+
+
+<p class="cert-intro">
+
+Choose a learning path based on your career interests.
+
+</p>
+
+
+<div class="recommended-grid">
+
+
+<!-- AI -->
+
+
+<div class="recommended-card">
+
+
+<i class="fa-solid fa-robot"></i>
+
+
+<h3>Artificial Intelligence</h3>
+
+
+<p>
+
+Learn AI fundamentals and explore responsible AI.
+
+</p>
+
+
+<a href="https://learn.microsoft.com/training/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore AI Learning â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- Web Development -->
+
+
+<div class="recommended-card">
+
+
+<i class="fa-solid fa-code"></i>
+
+
+<h3>Web Development</h3>
+
+
+<p>
+
+Learn HTML, CSS, JavaScript, and responsive design.
+
+</p>
+
+
+<a href="https://www.freecodecamp.org/learn/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore Web Courses â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- Cybersecurity -->
+
+
+<div class="recommended-card">
+
+
+<i class="fa-solid fa-shield-halved"></i>
+
+
+<h3>Cybersecurity</h3>
+
+
+<p>
+
+Learn security fundamentals and online safety.
+
+</p>
+
+
+<a href="https://www.netacad.com/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore Security Courses â†’
+
+</a>
+
+
+</div>
+
+
+
+<!-- Cloud Computing -->
+
+
+<div class="recommended-card">
+
+
+<i class="fa-solid fa-cloud"></i>
+
+
+<h3>Cloud Computing</h3>
+
+
+<p>
+
+Learn cloud services, deployment, and infrastructure.
+
+</p>
+
+
+<a href="https://skillbuilder.aws/"
+
+target="_blank"
+
+rel="noopener noreferrer">
+
+Explore Cloud Courses â†’
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+<div class="cert-note">
+
+<i class="fa-solid fa-circle-info"></i>
+
+
+<strong>Before enrolling:</strong>
+
+Some platforms offer free courses but charge for official
+
+certificates or exams. Check the course details and eligibility
+
+requirements before starting.
+
+</div>
+
+
+</section>
+
+
+
+<!-- Benefits -->
+
+
+<section class="cert-section">
+
+
+<h2>Why Earn Certifications?</h2>
+
+
+<p class="cert-intro">
+
+Build skills and demonstrate your learning to potential employers.
+
+</p>
+
+
+<div class="benefits-grid">
+
+
+<div class="benefit-card">
+
+<i class="fa-solid fa-file-lines"></i>
+
+<h3>Improve Your CV</h3>
+
+<p>Showcase relevant skills and completed training.</p>
+
+</div>
+
+
+<div class="benefit-card">
+
+<i class="fa-solid fa-briefcase"></i>
+
+<h3>Career Opportunities</h3>
+
+<p>Prepare for internships and entry-level roles.</p>
+
+</div>
+
+
+<div class="benefit-card">
+
+<i class="fa-solid fa-laptop-code"></i>
+
+<h3>Practical Skills</h3>
+
+<p>Build knowledge you can apply in projects.</p>
+
+</div>
+
+
+<div class="benefit-card">
+
+<i class="fa-brands fa-linkedin"></i>
+
+<h3>LinkedIn Profile</h3>
+
+<p>Showcase relevant certificates and learning achievements.</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+<!-- More Learning Platforms -->
+
 
 <section class="projects">
 
-    <h2>More Learning Platforms</h2>
 
-    <ul>
-        <li>IBM SkillsBuild</li>
-        <li>Oracle University</li>
-        <li>AWS Skill Builder</li>
-        <li>HP LIFE</li>
-        <li>LinkedIn Learning</li>
-        <li>freeCodeCamp</li>
-    </ul>
+<h2>More Learning Platforms</h2>
+
+
+<ul>
+
+<li>
+
+<a href="https://www.oracle.com/education/"
+
+target="_blank" rel="noopener noreferrer">
+
+Oracle University
+
+</a>
+
+</li>
+
+
+<li>
+
+<a href="https://www.life-global.org/"
+
+target="_blank" rel="noopener noreferrer">
+
+HP LIFE
+
+</a>
+
+</li>
+
+
+<li>
+
+<a href="https://www.linkedin.com/learning/"
+
+target="_blank" rel="noopener noreferrer">
+
+LinkedIn Learning
+
+</a>
+
+â€” subscription or organizational access may be required.
+
+</li>
+
+</ul>
+
 
 </section>
 
-<!-- ================= BENEFITS ================= -->
 
-<section class="projects">
 
-    <h2>Why Get Certified?</h2>
+<!-- Footer -->
 
-    <ul>
-        <li>Improve your resume.</li>
-        <li>Increase internship opportunities.</li>
-        <li>Validate your technical skills.</li>
-        <li>Learn industry-standard technologies.</li>
-        <li>Boost your LinkedIn profile.</li>
-        <li>Stand out during job applications.</li>
-    </ul>
-
-</section>
-
-<!-- ================= RECOMMENDED CERTIFICATIONS ================= -->
-
-<section class="projects">
-
-    <h2>Recommended Beginner Certifications</h2>
-
-    <ul>
-        <li>Google AI Essentials</li>
-        <li>Microsoft Learn AI Fundamentals</li>
-        <li>Cisco Introduction to Cybersecurity</li>
-        <li>AWS Cloud Practitioner Essentials</li>
-        <li>IBM Data Fundamentals</li>
-        <li>freeCodeCamp Responsive Web Design</li>
-    </ul>
-
-</section>
-
-<!-- ================= FOOTER ================= -->
 
 <footer>
 
-    <p>&copy; 2026 EmpowerTech. All Rights Reserved.</p>
+<p>&copy; 2026 EmpowerTech. All Rights Reserved.</p>
 
 </footer>
 
+
 </body>
+
 </html>
+

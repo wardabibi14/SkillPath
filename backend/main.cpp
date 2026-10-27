@@ -1,7 +1,7 @@
 // ============================================================
 //  EmpowerTech C++ Backend  (all members merged into one file)
 //
-//  Compile:  g++ -std=c++17 -O2 -o server empowertech_backend.cpp -lsqlite3
+//  Compile:  g++ -std=c++17 -O2 main.cpp sqlite3.o -o server.exe -lws2_32 -lbcrypt
 //  (install once:  sudo apt install libsqlite3-dev)
 //  Run:      ./server        (listens on http://127.0.0.1:8080)
 //
@@ -29,13 +29,16 @@
 #include <random>
 #include <cstdlib>
 
-#include <sqlite3.h>
-#include <sys/time.h>
+#include "sqlite3.h"
 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#define WIN32_LEAN_AND_MEAN
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <windows.h>
+#include <bcrypt.h>
 
 using namespace std;
 
@@ -2085,7 +2088,8 @@ bool sqlRun(const string& sql,
     sqlite3_stmt* statement = nullptr;
 
     if (sqlite3_prepare_v2(db, sql.c_str(), -1, &statement, nullptr) != SQLITE_OK) {
-        cerr << "SQL error: " << sqlite3_errmsg(db) << "\n";
+        cerr << "SQL prepare error (" << sqlite3_errcode(db) << "): "
+             << sqlite3_errmsg(db) << "\n  in: " << sql << "\n";
         return false;
     }
 
@@ -2115,7 +2119,8 @@ bool sqlRun(const string& sql,
     }
 
     if (result != SQLITE_DONE) {
-        cerr << "SQL error: " << sqlite3_errmsg(db) << "\n";
+        cerr << "SQL step error (" << sqlite3_errcode(db) << "): "
+             << sqlite3_errmsg(db) << "\n  in: " << sql << "\n";
         sqlite3_finalize(statement);
         return false;
     }
@@ -2418,13 +2423,10 @@ bool sameText(const string& a, const string& b) {
 
 string randomHex(int byteCount) {
 
-    static random_device source;
+    Bytes bytes(byteCount);
 
-    Bytes bytes;
-
-    for (int i = 0; i < byteCount; i++) {
-        bytes.push_back((unsigned char)(source() & 0xFF));
-    }
+    BCryptGenRandom(NULL, bytes.data(), (ULONG)byteCount,
+                    BCRYPT_USE_SYSTEM_PREFERRED_RNG);
 
     return toHex(bytes);
 }
@@ -3106,7 +3108,7 @@ string getHeaderValue(const string& request, const string& headerName) {
 
 // Reads one complete HTTP request: headers first, then the body
 // (as many bytes as Content-Length says). Needed for POST requests.
-string readHttpRequest(int clientSocket) {
+string readHttpRequest(SOCKET clientSocket){
 
     string data;
 
@@ -3117,7 +3119,7 @@ string readHttpRequest(int clientSocket) {
 
     while (data.size() < 65536) {
 
-        ssize_t received = recv(clientSocket, buffer, sizeof(buffer), 0);
+        int received = recv(clientSocket, buffer, (int)sizeof(buffer), 0);
 
         if (received <= 0) {
             break;
@@ -3166,7 +3168,7 @@ string handleRequest(string request) {
 
     string corsHeaders = "";
 
-    if (origin == "http://127.0.0.1:5500") {
+        if (origin == "http://127.0.0.1:5500" || origin == "http://localhost:5500") {
         corsHeaders =
             "Access-Control-Allow-Origin: " + origin + "\r\n"
             "Vary: Origin\r\n";
@@ -3361,6 +3363,8 @@ int main() {
     // build the linked list + BST of courses
     loadAllData();
     initLearningHub();
+        loadAllData();
+    initLearningHub();
 
     // SQLite database + hash tables for the student accounts
     if (!openDatabase()) {
@@ -3368,43 +3372,45 @@ int main() {
     }
 
     loadStudentsIntoHashTable();
+    WSADATA wsaData;
 
-    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    if (serverSocket < 0) {
-        cerr << "Error creating socket.\n";
+    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+        cerr << "WSAStartup failed.\n";
         return 1;
     }
 
-    int reuse = 1;
+    SOCKET serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 
-    setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR,
-               &reuse, sizeof(reuse));
+    if (serverSocket == INVALID_SOCKET) {
+        cerr << "Error creating socket.\n";
+        WSACleanup();
+        return 1;
+    }
 
     sockaddr_in serverAddress{};
 
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_port = htons(8080);
-
-    // Listen only on the local machine
     serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     if (bind(serverSocket, (sockaddr*)&serverAddress,
-             sizeof(serverAddress)) < 0) {
+             sizeof(serverAddress)) == SOCKET_ERROR) {
 
         cerr << "Error binding port 8080.\n";
         cerr << "Check whether another program is using it.\n";
 
-        close(serverSocket);
+        closesocket(serverSocket);
+        WSACleanup();
 
         return 1;
     }
 
-    if (listen(serverSocket, 10) < 0) {
+    if (listen(serverSocket, 10) == SOCKET_ERROR) {
 
         cerr << "Error starting server.\n";
 
-        close(serverSocket);
+        closesocket(serverSocket);
+        WSACleanup();
 
         return 1;
     }
@@ -3465,23 +3471,21 @@ int main() {
 
         sockaddr_in clientAddress{};
 
-        socklen_t clientLength = sizeof(clientAddress);
+        int clientLength = sizeof(clientAddress);
 
-        int clientSocket = accept(serverSocket,
-                                  (sockaddr*)&clientAddress,
-                                  &clientLength);
+        SOCKET clientSocket = accept(serverSocket,
+                                     (sockaddr*)&clientAddress,
+                                     &clientLength);
 
-        if (clientSocket < 0) {
+        if (clientSocket == INVALID_SOCKET) {
             continue;
         }
 
-        // Do not wait forever for a slow or broken client
-        timeval timeout;
-        timeout.tv_sec = 5;
-        timeout.tv_usec = 0;
+        // On Windows the receive timeout is a number of milliseconds
+        DWORD timeoutMs = 5000;
 
         setsockopt(clientSocket, SOL_SOCKET, SO_RCVTIMEO,
-                   &timeout, sizeof(timeout));
+                   (const char*)&timeoutMs, sizeof(timeoutMs));
 
         string request = readHttpRequest(clientSocket);
 
@@ -3493,9 +3497,9 @@ int main() {
 
             while (sent < response.size()) {
 
-                ssize_t result = send(clientSocket,
-                                      response.data() + sent,
-                                      response.size() - sent, 0);
+                int result = send(clientSocket,
+                                  response.data() + sent,
+                                  (int)(response.size() - sent), 0);
 
                 if (result <= 0) {
                     break;
@@ -3505,10 +3509,11 @@ int main() {
             }
         }
 
-        close(clientSocket);
+        closesocket(clientSocket);
     }
 
-    close(serverSocket);
+    closesocket(serverSocket);
+    WSACleanup();
 
     return 0;
 }

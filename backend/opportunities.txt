@@ -1,0 +1,15 @@
+1|Backend Developer Intern|Internship|DevelopersHub|2026-11-15|2026-10-01|40000
+2|Software Engineering Intern|Internship|Systems Limited|2026-11-30|2026-10-05|50000
+3|Data Science Intern|Internship|Arbisoft|2026-10-31|2026-09-28|45000
+4|HEC Need Based Scholarship|Scholarship|HEC Pakistan|2026-12-15|2026-09-20|60000
+5|Google Women Techmakers|Scholarship|Google|2026-11-20|2026-10-02|100000
+6|NED Merit Scholarship|Scholarship|NED University|2026-11-05|2026-09-15|30000
+7|BuildByte Hackathon|Hackathon|IEEE NED|2026-11-10|2026-10-03|50000
+8|Karachi Hack 2026|Hackathon|Tech Valley Karachi|2026-12-01|2026-10-08|75000
+9|Smart Pakistan Hackathon|Hackathon|Ignite National Tech|2026-12-20|2026-10-10|100000
+10|ACM ICPC Regional Contest|Competition|ACM Pakistan|2026-11-25|2026-10-04|0
+11|National Software Competition|Competition|NASTP|2026-12-05|2026-10-06|80000
+12|UI/UX Design Challenge|Competition|Creative Minds PK|2026-11-18|2026-10-07|25000
+13|Junior Software Engineer|Job|10Pearls|2026-12-10|2026-10-09|120000
+14|Associate Web Developer|Job|Netsol Technologies|2026-11-28|2026-10-11|90000
+15|Frontend Developer Intern|Internship|Careem|2026-12-12|2026-10-12|55000
